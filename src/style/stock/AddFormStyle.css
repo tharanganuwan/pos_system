@@ -1,0 +1,20 @@
+#PaneBackground{
+    -fx-background-color: #A7E268;
+}
+#btn{
+    -fx-background-color: #0d4d0f;
+    -fx-background-radius: 8;
+}
+#btn:hover{
+    -fx-background-color: #073204;
+    -fx-background-radius: 8;
+}
+#pane{
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-border-width: 8;
+    -fx-background-radius: 10;
+}
+#txt{
+    -fx-background-radius: 2;
+}

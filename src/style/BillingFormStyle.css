@@ -1,0 +1,48 @@
+#root{
+    -fx-background-color : #A7E268;
+}
+#btnClose{
+    -fx-background-color: red;
+    -fx-background-radius: 10;
+}
+#btnClose:hover{
+    -fx-background-color: #ab2b2b;
+}
+#btnMinimize{
+    -fx-background-color: green;
+    -fx-background-radius: 10;
+}
+#btnMinimize:hover{
+    -fx-background-color: #36b172;
+}
+#panesBillingDashboard{
+    -fx-border-color:  #120672;
+    -fx-border-width: 3;
+    -fx-border-radius: 10;
+}
+#btnRed{
+    -fx-background-color:   #f41e1e;
+    -fx-background-radius: 8;
+}
+#btnRed:hover{
+    -fx-background-color:   #961d1d;
+    -fx-background-radius: 8;
+}
+
+#btnGreen{
+    -fx-background-color:  #26bf30;
+    -fx-background-radius: 8;
+}
+#btnGreen:hover{
+    -fx-background-color:  #49964f;
+    -fx-background-radius: 8;
+}
+
+#btnPrint{
+    -fx-background-color:  #3187ff;
+    -fx-background-radius: 8;
+}
+#btnPrint:hover{
+    -fx-background-color:  #0558ab;
+    -fx-background-radius: 8;
+}

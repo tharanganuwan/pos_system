@@ -1,0 +1,13 @@
+#btnClose{
+    -fx-background-color: red;
+    -fx-background-radius: 10;
+}
+#btnClose:hover{
+    -fx-background-color: #ab2b2b;
+}
+#btnLogin{
+    -fx-background-color:  #1ccc91;
+}
+#btnLogin:hover{
+    -fx-background-color: #5bf8c1;
+}

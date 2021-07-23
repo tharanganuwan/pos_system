@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="510.0" prefWidth="1015.0" stylesheets="@../style/LoginFormStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginFormController">
+   <children>
+      <ImageView fitHeight="590.0" fitWidth="1017.0" layoutX="-1.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/login.jpg" />
+         </image>
+      </ImageView>
+      <Button id="btnClose" layoutX="961.0" layoutY="11.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="26.0" prefWidth="46.0" text="X" textFill="WHITE">
+         <font>
+            <Font name="Tw Cen MT Bold" size="22.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Button>
+      <Button id="btnLogin" layoutX="660.0" layoutY="414.0" mnemonicParsing="false" onAction="#btnLoginOnAction" prefHeight="30.0" prefWidth="173.0" text="LOGIN">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <DropShadow height="12.18" radius="5.4925" width="11.79" />
+         </effect></Button>
+      <PasswordField fx:id="txtPassword" layoutX="629.0" layoutY="356.0" prefHeight="30.0" prefWidth="243.0" promptText="Enter Password" />
+      <TextField fx:id="txtUserName" layoutX="629.0" layoutY="295.0" prefHeight="30.0" prefWidth="243.0" promptText="Enter User Name" />
+      <Label layoutX="470.0" layoutY="298.0" text="User Name or ID  :">
+         <font>
+            <Font name="Berlin Sans FB" size="19.0" />
+         </font>
+      </Label>
+      <Label layoutX="526.0" layoutY="360.0" text="Password  :">
+         <font>
+            <Font name="Berlin Sans FB" size="19.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblPasswordError" alignment="CENTER_RIGHT" layoutX="731.0" layoutY="386.0" prefHeight="20.0" prefWidth="140.0" text="password does not match" textFill="RED">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUserNameError" alignment="CENTER_RIGHT" layoutX="724.0" layoutY="324.0" prefHeight="20.0" prefWidth="147.0" text="user name ID does not match" textFill="RED">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label layoutX="518.0" layoutY="71.0" prefHeight="80.0" prefWidth="243.0" text="PL POS ">
+         <font>
+            <Font name="Russo One" size="56.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.6859903381642511" endY="0.21739130434782605" startX="0.6811594202898551" startY="1.0">
+               <stops>
+                  <Stop color="#1f1c6b" />
+                  <Stop color="#0dffac" offset="0.9963099630996309" />
+                  <Stop color="#0dffac" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+      <ImageView fitHeight="147.0" fitWidth="325.0" layoutX="498.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ShopIcon.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="648.0" layoutY="151.0" prefHeight="80.0" prefWidth="281.0" text=" SYSTEM">
+         <font>
+            <Font name="Russo One" size="56.0" />
+         </font>
+         <textFill>
+            <LinearGradient endX="0.6859903381642511" endY="0.21739130434782605" startX="0.6811594202898551" startY="1.0">
+               <stops>
+                  <Stop color="#1f1c6b" />
+                  <Stop color="#0dffac" offset="0.9963099630996309" />
+                  <Stop color="#0dffac" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </textFill>
+      </Label>
+   </children>
+</AnchorPane>

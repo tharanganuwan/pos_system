@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="root" fx:id="root" prefHeight="1070.0" prefWidth="1922.0" stylesheets="@../style/BillingFormStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.BillingFormController">
+   <Label layoutX="725.0" layoutY="38.0" text="PL POS SYSTEM" textFill="#120672">
+      <font>
+         <Font name="Gill Sans MT" size="68.0" />
+      </font>
+   </Label>
+   <Pane layoutX="38.0" layoutY="140.0" prefHeight="896.0" prefWidth="1844.0" style="-fx-background-color: white; -fx-background-radius: 20;" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="28.0">
+      <children>
+         <Pane id="panesBillingDashboard" layoutX="25.0" layoutY="31.0" prefHeight="426.0" prefWidth="707.0">
+            <children>
+               <TextField fx:id="txtSearchItems" layoutX="10.0" layoutY="14.0" onKeyReleased="#txtSearchItemsOnKeyReleased" prefHeight="30.0" prefWidth="689.0" promptText="Search tems" />
+               <ListView fx:id="lstSearchItems" layoutX="10.0" layoutY="48.0" prefHeight="367.0" prefWidth="689.0" />
+            </children>
+         </Pane>
+         <Pane id="panesBillingDashboard" layoutX="1146.0" layoutY="29.0" prefHeight="721.0" prefWidth="681.0">
+            <children>
+               <TableView fx:id="tblBuyItems" layoutX="11.0" layoutY="8.0" prefHeight="517.0" prefWidth="660.0">
+                 <columns>
+                   <TableColumn prefWidth="224.0" text="Item" />
+                   <TableColumn prefWidth="128.0" text="Unique Price" />
+                     <TableColumn prefWidth="148.0" text="Quantity" />
+                     <TableColumn prefWidth="158.0" text="Total" />
+                 </columns>
+               </TableView>
+               <Label layoutX="13.0" layoutY="619.0" prefHeight="36.0" prefWidth="115.0" text="Total       :">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font></Label>
+               <Label layoutX="14.0" layoutY="669.0" prefHeight="36.0" prefWidth="115.0" text="Discount :">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font></Label>
+               <Label layoutX="345.0" layoutY="618.0" prefHeight="36.0" prefWidth="115.0" text="Payment :">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font></Label>
+               <Label layoutX="347.0" layoutY="669.0" prefHeight="36.0" prefWidth="115.0" text="Balance  :">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font></Label>
+               <TextField fx:id="txtTotal" alignment="CENTER" layoutX="132.0" layoutY="623.0" style="-fx-background-color: #9fd1f8;" text="0.0">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font></TextField>
+               <TextField fx:id="txtDiscount" alignment="CENTER" layoutX="134.0" layoutY="673.0" onKeyTyped="#txtDiscountOnKeyTyped" text="0">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font></TextField>
+               <TextField fx:id="txtPayment" alignment="CENTER" layoutX="469.0" layoutY="623.0" onKeyTyped="#txtPaymentOnKeyTyped">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font></TextField>
+               <TextField fx:id="txtBalance" alignment="CENTER" layoutX="468.0" layoutY="674.0">
+                  <font>
+                     <Font name="System Bold" size="15.0" />
+                  </font></TextField>
+               <Button id="btnRed" layoutX="342.0" layoutY="539.0" mnemonicParsing="false" onAction="#btnCancelOrderOnAction" prefHeight="57.0" prefWidth="326.0" text="Cancel Order" textFill="WHITE">
+                  <font>
+                     <Font name="Britannic Bold" size="26.0" />
+                  </font>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+               <Button id="btnRed" layoutX="13.0" layoutY="539.0" mnemonicParsing="false" onAction="#btnDeleteBuyItem" prefHeight="57.0" prefWidth="313.0" text="Delete " textFill="WHITE">
+                  <font>
+                     <Font name="Britannic Bold" size="26.0" />
+                  </font>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </Button>
+            </children></Pane>
+         <Pane id="panesBillingDashboard" layoutX="24.0" layoutY="478.0" prefHeight="395.0" prefWidth="1100.0">
+            <children>
+               <TableView fx:id="tblBillingSummary" layoutX="11.0" layoutY="9.0" prefHeight="376.0" prefWidth="1076.0">
+                 <columns>
+                   <TableColumn prefWidth="158.0" text="Invoice Id" />
+                   <TableColumn prefWidth="165.0" text="Date" />
+                     <TableColumn prefWidth="162.0" text="Time" />
+                     <TableColumn prefWidth="184.0" text="Total" />
+                     <TableColumn prefWidth="150.0" text="Discount" />
+                     <TableColumn prefWidth="135.0" text="Payment" />
+                     <TableColumn prefWidth="120.0" text="Balance" />
+                 </columns>
+               </TableView>
+            </children></Pane>
+         <Pane id="panesBillingDashboard" layoutX="753.0" layoutY="31.0" prefHeight="428.0" prefWidth="371.0">
+            <children>
+               <Label fx:id="lblItemName" alignment="CENTER" layoutX="26.0" layoutY="21.0" prefHeight="46.0" prefWidth="326.0" style="-fx-border-color: black; -fx-border-radius: 20;">
+                  <font>
+                     <Font size="20.0" />
+                  </font></Label>
+               <Label alignment="CENTER" layoutX="143.0" layoutY="86.0" prefHeight="46.0" prefWidth="79.0" text="Price">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font></Label>
+               <Label alignment="CENTER" layoutX="108.0" layoutY="189.0" prefHeight="46.0" prefWidth="140.0" text="Quantity">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font></Label>
+               <TextField fx:id="txtItemPrice" alignment="CENTER" layoutX="26.0" layoutY="132.0" prefHeight="30.0" prefWidth="315.0">
+                  <font>
+                     <Font size="20.0" />
+                  </font></TextField>
+               <TextField fx:id="txtItemQuantity" alignment="CENTER" layoutX="24.0" layoutY="237.0" prefHeight="30.0" prefWidth="313.0">
+                  <font>
+                     <Font size="20.0" />
+                  </font></TextField>
+               <Button id="btnRed" layoutX="27.0" layoutY="300.0" mnemonicParsing="false" onAction="#btnCancelOnAction" prefHeight="98.0" prefWidth="147.0" text="Cancle" textFill="WHITE">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor></Button>
+               <Button id="btnGreen" layoutX="192.0" layoutY="302.0" mnemonicParsing="false" onAction="#btnAddOnAction" prefHeight="98.0" prefWidth="147.0" text="Add" textFill="WHITE">
+                  <font>
+                     <Font name="Britannic Bold" size="25.0" />
+                  </font>
+                  <effect>
+                     <DropShadow />
+                  </effect>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor></Button>
+            </children>
+         </Pane>
+         <Button id="btnPrint" layoutX="1147.0" layoutY="764.0" mnemonicParsing="false" onAction="#btnResetOnAction" prefHeight="109.0" prefWidth="147.0" text="Add new" textFill="WHITE">
+            <font>
+               <Font name="Britannic Bold" size="25.0" />
+            </font>
+            <effect>
+               <DropShadow />
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
+         <Button id="btnGreen" layoutX="1303.0" layoutY="765.0" mnemonicParsing="false" onAction="#btnBalanceOnAction" prefHeight="109.0" prefWidth="371.0" text="Balance" textFill="WHITE">
+            <font>
+               <Font name="Britannic Bold" size="25.0" />
+            </font>
+            <effect>
+               <DropShadow />
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
+         <Button id="btnPrint" layoutX="1682.0" layoutY="765.0" mnemonicParsing="false" prefHeight="109.0" prefWidth="147.0" text="Print" textFill="WHITE">
+            <font>
+               <Font name="Britannic Bold" size="25.0" />
+            </font>
+            <effect>
+               <DropShadow />
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
+      </children>
+   </Pane>
+   <Button id="btnClose" layoutX="1835.0" layoutY="26.0" mnemonicParsing="false" onAction="#btnCloseOnAction" prefHeight="26.0" prefWidth="27.0" text="X" textFill="WHITE">
+      <font>
+         <Font name="Tw Cen MT Bold" size="25.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+      <effect>
+         <DropShadow />
+      </effect>
+   </Button>
+   <Button id="btnMinimize" layoutX="1770.0" layoutY="26.0" mnemonicParsing="false" onAction="#btnMinimizeOnAction" prefHeight="46.0" prefWidth="48.0" text="-" textFill="WHITE">
+      <font>
+         <Font name="Tw Cen MT Bold" size="25.0" />
+      </font>
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+      <effect>
+         <DropShadow />
+      </effect>
+   </Button>
+   <Label fx:id="lblTime" layoutX="318.0" layoutY="87.0" prefHeight="37.0" prefWidth="138.0" text="12:15:14" textFill="#353461">
+      <font>
+         <Font name="Agency FB Bold" size="26.0" />
+      </font>
+   </Label>
+   <Label layoutX="258.0" layoutY="87.0" prefHeight="37.0" prefWidth="75.0" text="Time :" textFill="#353461">
+      <font>
+         <Font name="Agency FB Bold" size="26.0" />
+      </font>
+   </Label>
+   <Label fx:id="lblDate" layoutX="103.0" layoutY="86.0" prefHeight="37.0" prefWidth="138.0" text="2012/05/14" textFill="#353461">
+      <font>
+         <Font name="Agency FB Bold" size="26.0" />
+      </font>
+   </Label>
+   <Label layoutX="47.0" layoutY="85.0" prefHeight="37.0" prefWidth="75.0" text="Date :" textFill="#353461">
+      <font>
+         <Font name="Agency FB Bold" size="26.0" />
+      </font>
+   </Label>
+   <Label fx:id="lblLoginName" layoutX="51.0" layoutY="24.0" prefHeight="53.0" prefWidth="269.0" text="Kasun" textFill="#353461">
+      <font>
+         <Font name="Agency FB Bold" size="36.0" />
+      </font>
+   </Label>
+</AnchorPane>
