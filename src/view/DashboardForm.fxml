@@ -491,7 +491,7 @@
                               <Font name="Britannic Bold" size="36.0" />
                            </font>
                         </Label>
-                        <Button id="btnsStock" layoutX="23.0" layoutY="102.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="426.0" text="Delete All items" textFill="WHITE">
+                        <Button id="btnsStock" layoutX="23.0" layoutY="102.0" mnemonicParsing="false" onAction="#btnDeleteAllItemsOnAction" prefHeight="65.0" prefWidth="426.0" text="Delete All items" textFill="WHITE">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
@@ -502,7 +502,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="btnsStock" layoutX="22.0" layoutY="187.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="426.0" text="Delete All suppliers" textFill="WHITE">
+                        <Button id="btnsStock" layoutX="22.0" layoutY="189.0" mnemonicParsing="false" onAction="#btnDeleteAllSuppliersOnAction" prefHeight="65.0" prefWidth="426.0" text="Delete All suppliers" textFill="WHITE">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
@@ -513,7 +513,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="btnsStock" layoutX="22.0" layoutY="273.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="428.0" text="Reset Login History" textFill="WHITE">
+                        <Button id="btnsStock" layoutX="22.0" layoutY="279.0" mnemonicParsing="false" onAction="#btnResetHistoryOnAction" prefHeight="65.0" prefWidth="428.0" text="Reset Login History" textFill="WHITE">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
@@ -524,7 +524,18 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="btnsStock" layoutX="24.0" layoutY="359.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="428.0" text="Clear Billing History" textFill="WHITE">
+                        <Button id="btnsStock" layoutX="24.0" layoutY="367.0" mnemonicParsing="false" onAction="#btnClearBillingHistoryOnAction" prefHeight="65.0" prefWidth="428.0" text="Clear Billing History" textFill="WHITE">
+                           <font>
+                              <Font name="Britannic Bold" size="30.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </Button>
+                        <Button id="btnStockClear" layoutX="24.0" layoutY="455.0" mnemonicParsing="false" onAction="#btnFactryDataResetOnAction" prefHeight="65.0" prefWidth="428.0" text="Factry data Reset" textFill="WHITE">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>

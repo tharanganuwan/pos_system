@@ -666,4 +666,24 @@ public class DashboardFormController {
 
         }
     }
+
+    public void btnDeleteAllItemsOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void btnDeleteAllSuppliersOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void btnResetHistoryOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void btnClearBillingHistoryOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void btnFactryDataResetOnAction(ActionEvent actionEvent) {
+
+    }
 }
