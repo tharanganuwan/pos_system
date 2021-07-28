@@ -451,7 +451,7 @@
                <children>
                   <Pane id="stockDetailsPanes" layoutX="30.0" layoutY="44.0" prefHeight="549.0" prefWidth="999.0">
                      <children>
-                        <TableView fx:id="tblSystemUser" layoutX="24.0" layoutY="86.0" onMousePressed="#tblStockOnMousePressed" prefHeight="433.0" prefWidth="515.0">
+                        <TableView fx:id="tblSystemUser" layoutX="24.0" layoutY="22.0" onMousePressed="#tblUserOnMousePressed" prefHeight="497.0" prefWidth="515.0">
                            <columns>
                               <TableColumn prefWidth="55.000030517578125" text="User Id" />
                               <TableColumn prefWidth="108.0" text="Name" />
@@ -467,20 +467,13 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </TableView>
-                        <TextField layoutX="223.0" layoutY="24.0" onKeyReleased="#txtSearchItemKeyReleased" prefHeight="38.0" prefWidth="306.0" promptText="user Name or Id" style="-fx-background-radius: 8;">
-                           <font>
-                              <Font size="17.0" />
-                           </font>
-                        </TextField>
-                        <Label layoutX="35.0" layoutY="25.0" text="Search users  :">
-                           <font>
-                              <Font name="System Bold" size="25.0" />
-                           </font>
-                        </Label>
-                        <Button id="btnStockClear" layoutX="583.0" layoutY="482.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="384.0" text="Refresh" textFill="WHITE">
+                        <Button id="btnsStock" layoutX="583.0" layoutY="482.0" mnemonicParsing="false" onAction="#btnRefreshUserTableOnAction" prefHeight="36.0" prefWidth="384.0" text="Refresh" textFill="WHITE">
                            <font>
                               <Font name="Britannic Bold" size="21.0" />
                            </font>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </Button>
                      </children>
                   </Pane>
@@ -535,7 +528,7 @@
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </Button>
-                        <Button id="btnStockClear" layoutX="24.0" layoutY="455.0" mnemonicParsing="false" onAction="#btnFactryDataResetOnAction" prefHeight="65.0" prefWidth="428.0" text="Factry data Reset" textFill="WHITE">
+                        <Button id="btnStockClear" layoutX="24.0" layoutY="455.0" mnemonicParsing="false" onAction="#btnFactoryDataResetOnAction" prefHeight="65.0" prefWidth="428.0" text="Factry data Reset" textFill="WHITE">
                            <font>
                               <Font name="Britannic Bold" size="30.0" />
                            </font>
@@ -553,7 +546,7 @@
                         <Font name="Britannic Bold" size="36.0" />
                      </font>
                   </Label>
-                  <Button id="btnsStock" layoutX="613.0" layoutY="152.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="391.0" text="ADD" textFill="WHITE">
+                  <Button id="btnsStock" layoutX="613.0" layoutY="152.0" mnemonicParsing="false" onAction="#btnAddUserOnAction" prefHeight="64.0" prefWidth="391.0" text="ADD" textFill="WHITE">
                      <font>
                         <Font name="Britannic Bold" size="30.0" />
                      </font>
@@ -564,7 +557,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="btnsStock" layoutX="613.0" layoutY="239.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="391.0" text="DELETE" textFill="WHITE">
+                  <Button id="btnsStock" layoutX="613.0" layoutY="239.0" mnemonicParsing="false" onAction="#btnDeleteUserOnAction" prefHeight="63.0" prefWidth="391.0" text="DELETE" textFill="WHITE">
                      <font>
                         <Font name="Britannic Bold" size="30.0" />
                      </font>
@@ -575,7 +568,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button id="btnsStock" layoutX="614.0" layoutY="326.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="391.0" text="Update" textFill="WHITE">
+                  <Button id="btnsStock" layoutX="614.0" layoutY="326.0" mnemonicParsing="false" onAction="#btnUpdateUserOnAction" prefHeight="63.0" prefWidth="391.0" text="Update" textFill="WHITE">
                      <font>
                         <Font name="Britannic Bold" size="30.0" />
                      </font>

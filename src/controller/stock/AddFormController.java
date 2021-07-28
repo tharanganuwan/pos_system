@@ -116,7 +116,7 @@ public class AddFormController extends DashboardFormController {
         String exp=String.valueOf(dateEXP.getValue());
 
         if(!(name.equals("")||sellPrice.equals("")||quantity.equals("")||buyPrice.equals("")||id.equals(""))){
-            String supplerId=String.valueOf(cmbSupplierId.getValue()).substring(0,5);
+            String supplerId=String.valueOf(cmbSupplierId.getValue());
             txtItemName.setStyle("[id=txt]");
             txtItemSellPrice.setStyle("[id=txt]");
             txtItemQuantity.setStyle("[id=txt]");
@@ -126,6 +126,7 @@ public class AddFormController extends DashboardFormController {
             }
             else {
                 Connection connection = DBConnection.getInstance().getConnection();
+                supplerId=String.valueOf(cmbSupplierId.getValue()).substring(0,5);
                 try {
                     PreparedStatement preparedStatement = connection.prepareStatement("insert into item values(?,?,?,?,?,?,?,?)");
                     preparedStatement.setObject(1,id);
@@ -146,7 +147,7 @@ public class AddFormController extends DashboardFormController {
                     }
                     preparedStatement.executeUpdate();
                     btnClearOnAction(actionEvent);
-                    loadingStockTable();
+                    //loadingStockTable();
                     //////////////////////////////////////////////////////////
                     Notifications notifications =Notifications.create();
                     notifications.title("Item Add Notification");

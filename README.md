@@ -1,4 +1,4 @@
-pos system login
+pos system default login
 
-user name=Tharanga
-password=5503
+user name=Admin
+password=12345

@@ -60,6 +60,7 @@ public class DashboardFormController {
     public TableView<StockTM> tblStock;
     public ObservableList<StockTM> items;
     public boolean stockRowIsDetected=false;
+    public boolean systemUserRowIsDetected=false;
     public Button btnEndSoonItems;
     public Button btnStockOutItems;
     public Button btnExpireItems;
@@ -68,6 +69,7 @@ public class DashboardFormController {
     public boolean btnExpireItemsIsClicked=false;
     public TextField txtSearchStockItems;
     public TableView<SystemUsersTM> tblSystemUser;
+    public ObservableList<SystemUsersTM> itemsUsers;
     private boolean stopTime = false;
     public String loginTime;
     public String loginDate;
@@ -97,6 +99,7 @@ public class DashboardFormController {
     public void PaneDashboardOnMouseClicked(MouseEvent mouseEvent) {
         mainVisible(1);
         setCashierBalance();
+        loginHistory();
     }
 
     public void PaneStockOnMouseClicked(MouseEvent mouseEvent) {
@@ -123,8 +126,8 @@ public class DashboardFormController {
     }
 
     public void systemUsersTable(){
-        ObservableList<SystemUsersTM> items = tblSystemUser.getItems();
-        items.clear();
+        itemsUsers = tblSystemUser.getItems();
+        itemsUsers.clear();
         Connection connection = DBConnection.getInstance().getConnection();
         try {
             Statement statement = connection.createStatement();
@@ -138,7 +141,7 @@ public class DashboardFormController {
                 String role=resultSet.getString(8);
 
                 SystemUsersTM users = new SystemUsersTM(id,name,email,phone,nic,role);
-                items.add(users);
+                itemsUsers.add(users);
                 tblSystemUser.refresh();
             }
 
@@ -668,22 +671,182 @@ public class DashboardFormController {
     }
 
     public void btnDeleteAllItemsOnAction(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.WARNING,"Do you wan to reset Stock table...!",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if(buttonType.get().equals(ButtonType.YES)){
+            Connection connection = DBConnection.getInstance().getConnection();
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from item");
+                int isUpdate = preparedStatement.executeUpdate();
+                if(isUpdate!=0){
+                    Notifications notifications=Notifications.create();
+                    notifications.title("Data Update Notification");
+                    notifications.text("All Stock items reset successfully");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showConfirm();
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
 
     }
 
     public void btnDeleteAllSuppliersOnAction(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.WARNING,"Do you wan to Delete All Suppliers...!",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if(buttonType.get().equals(ButtonType.YES)){
+            Connection connection = DBConnection.getInstance().getConnection();
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from supplier");
+                int isUpdate = preparedStatement.executeUpdate();
+                if(isUpdate!=0){
+                    Notifications notifications=Notifications.create();
+                    notifications.title("Data Update Notification");
+                    notifications.text("All Supplies are Deleted successfully");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showConfirm();
+                }
 
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
     public void btnResetHistoryOnAction(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.WARNING,"Do you wan to Delete All Login History data...!",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if(buttonType.get().equals(ButtonType.YES)){
+            Connection connection = DBConnection.getInstance().getConnection();
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from loginhistory");
+                int isUpdate = preparedStatement.executeUpdate();
+                if(isUpdate!=0){
+                    Notifications notifications=Notifications.create();
+                    notifications.title("Data Update Notification");
+                    notifications.text("All Login History data are Deleted successfully");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showConfirm();
+                }
 
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
     }
 
     public void btnClearBillingHistoryOnAction(ActionEvent actionEvent) {
+        Alert alert=new Alert(Alert.AlertType.WARNING,"Do you wan to Delete All Billing History details...!",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if(buttonType.get().equals(ButtonType.YES)){
+            Connection connection = DBConnection.getInstance().getConnection();
+            try {
+                PreparedStatement preparedStatement = connection.prepareStatement("delete from billing");
+                int isUpdate = preparedStatement.executeUpdate();
+                if(isUpdate!=0){
+                    Notifications notifications=Notifications.create();
+                    notifications.title("Data Update Notification");
+                    notifications.text("All Billing data are Deleted successfully");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showConfirm();
+                }
+
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+        }
+    }
+
+    public void btnFactoryDataResetOnAction(ActionEvent actionEvent) {
+        Alert alert = new Alert(Alert.AlertType.WARNING,"Do you want to reset Application...? (You can select YES every thing if you want to reset)",ButtonType.YES,ButtonType.NO);
+        Optional<ButtonType> buttonType = alert.showAndWait();
+        if(buttonType.get().equals(ButtonType.YES)){
+            btnDeleteAllItemsOnAction(actionEvent);
+            btnDeleteAllSuppliersOnAction( actionEvent);
+            btnResetHistoryOnAction(actionEvent);
+            btnClearBillingHistoryOnAction(actionEvent);
+        }
 
     }
 
-    public void btnFactryDataResetOnAction(ActionEvent actionEvent) {
+    public void btnRefreshUserTableOnAction(ActionEvent actionEvent) {
+        systemUsersTable();
+    }
 
+    public void btnAddUserOnAction(ActionEvent actionEvent) throws IOException {
+        FXMLLoader fxmlLoader=new FXMLLoader(getClass().getResource("../view/user/AddUserForm.fxml"));
+        Parent root1=(Parent) fxmlLoader.load();
+        Stage stage=new Stage();
+        stage.setScene(new Scene(root1));
+        stage.initStyle(StageStyle.UTILITY);
+        stage.setTitle("Add New User");
+        stage.show();
+    }
+
+    public void btnDeleteUserOnAction(ActionEvent actionEvent) {
+        if(!systemUserRowIsDetected){
+            if(!tblSystemUser.getSelectionModel().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Delete This User..!",ButtonType.YES,ButtonType.NO);
+                Optional<ButtonType> buttonType = alert.showAndWait();
+                if (buttonType.get().equals(ButtonType.YES)){
+                    SystemUsersTM selectedItem = tblSystemUser.getSelectionModel().getSelectedItem();
+                    String deleteItemId = selectedItem.getId();
+                    Connection connection = DBConnection.getInstance().getConnection();
+                    String imageUrl = null;
+                    try {
+                        PreparedStatement preparedStatement1 = connection.prepareStatement("select * from systemuser where id=?");
+                        preparedStatement1.setObject(1,deleteItemId);
+                        ResultSet resultSet = preparedStatement1.executeQuery();
+                        if(resultSet.next()){
+                            imageUrl=resultSet.getString(7);
+                        }
+
+                        PreparedStatement preparedStatement = connection.prepareStatement("delete from systemuser where id=?");
+                        preparedStatement.setObject(1,deleteItemId);
+                        preparedStatement.executeUpdate();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    itemsUsers.remove(selectedItem);
+                    systemUserRowIsDetected=true;
+                    btnRefreshUserTableOnAction(actionEvent);
+                    if(!(imageUrl.equals("src/images/default.jpg")||(imageUrl==null))){
+                        File fileDelete =new File(imageUrl);
+                        fileDelete.delete();
+                    }
+
+                    Notifications notifications =Notifications.create();
+                    notifications.title("Delete Notification");
+                    notifications.text("User Delete successfully");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showWarning();
+                }
+            }
+        }
+    }
+
+    public void btnUpdateUserOnAction(ActionEvent actionEvent) {
+
+    }
+
+    public void tblUserOnMousePressed(MouseEvent mouseEvent) {
+        systemUserRowIsDetected=false;
     }
 }
