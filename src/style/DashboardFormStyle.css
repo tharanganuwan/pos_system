@@ -100,3 +100,10 @@
     -fx-background-color: red;
     -fx-background-radius: 8;
 }
+
+#btnSettingRefresh{
+    -fx-background-color: #073204;
+}
+#btnSettingRefresh:hover{
+    -fx-background-color: #000000;
+}

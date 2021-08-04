@@ -2,6 +2,8 @@ package controller;
 
 import db.DBConnection;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -29,19 +31,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
 
-
 public class DashboardFormController {
     public AnchorPane root;
     public Pane paneDashboard;
     public Pane paneStock;
-    public Pane paneSuppliers;
-    public Pane paneCustomers;
     public Pane paneReports;
     public Pane paneSettings;
     public Pane menuPaneDashboard;
     public Pane menuPaneStock;
-    public Pane menuPaneSuppliers;
-    public Pane menuPaneCustomers;
     public Pane menuPaneReports;
     public Pane menuPaneSettings;
     public ImageView image;
@@ -70,6 +67,13 @@ public class DashboardFormController {
     public TextField txtSearchStockItems;
     public TableView<SystemUsersTM> tblSystemUser;
     public ObservableList<SystemUsersTM> itemsUsers;
+    public Label lblLoginStatusRole;
+    public TableView<SupplierTM> tblSupplier;
+    public ObservableList<SupplierTM> Suppliers;
+    public boolean supplierRowIsDetected=false;
+    public Pane paneUpdateSupplier;
+    public TextField txtMainSupplierId;
+    public TextField txtMainSupplierName;
     private boolean stopTime = false;
     public String loginTime;
     public String loginDate;
@@ -77,6 +81,8 @@ public class DashboardFormController {
     public static String cashierBalance;
     public boolean changeCashierBalance=false;
     public static String updateSelectItem;
+    public static String selectedUserId;
+    public String newSupplierId;
 
     public void initialize(){
         //userid="C001";//////////////////////////////////////////////////////////////////////////////////////
@@ -107,22 +113,62 @@ public class DashboardFormController {
         loadingStockTable();
     }
 
-    public void PaneSuppliersOnMouseClicked(MouseEvent mouseEvent) {
-        mainVisible(3);
-    }
-
-    public void PaneCustomersOnMouseClicked(MouseEvent mouseEvent) {
-        mainVisible(4);
-    }
-
     public void PaneReportsOnMouseClicked(MouseEvent mouseEvent) {
         mainVisible(5);
     }
 
     public void PaneSettingsOnMouseClicked(MouseEvent mouseEvent) {
-        mainVisible(6);
-        systemUsersTable();
+        if(lblLoginStatusRole.getText().equals("Admin")){
+            mainVisible(6);
+            systemUsersTable();
+            supplierTable();
 
+            tblSupplier.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<SupplierTM>() {
+                @Override
+                public void changed(ObservableValue<? extends SupplierTM> observable, SupplierTM oldValue, SupplierTM newValue) {
+                    if(newValue == null){
+                        return;
+                    }
+                    txtMainSupplierId.setText(newValue.getId());
+                    txtMainSupplierName.setText(newValue.getName());
+                }
+            });
+        }
+        else {
+            Notifications notifications =Notifications.create();
+            notifications.title("Error Notification");
+            notifications.text("Settings Access admin only...!!!");
+            notifications.graphic(null);
+            notifications.hideAfter(Duration.seconds(5));
+            notifications.position(Pos.TOP_RIGHT);
+            notifications.darkStyle();
+            notifications.showError();
+        }
+    }
+
+    public void supplierTable(){
+        Suppliers = tblSupplier.getItems();
+        Suppliers.clear();
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery("select * from supplier");
+            while (resultSet.next()){
+                String id =resultSet.getString(1);
+                String name=resultSet.getString(2);
+
+                SupplierTM users = new SupplierTM(id,name);
+                Suppliers.add(users);
+                tblSupplier.refresh();
+            }
+
+            tblSupplier.getColumns().get(0).setCellValueFactory(new PropertyValueFactory<>("id"));
+            tblSupplier.getColumns().get(1).setCellValueFactory(new PropertyValueFactory<>("name"));
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void systemUsersTable(){
@@ -160,15 +206,11 @@ public class DashboardFormController {
     public void mainVisible(int paneNumber){
         paneDashboard.setVisible(false);
         paneStock.setVisible(false);
-        paneSuppliers.setVisible(false);
-        paneCustomers.setVisible(false);
         paneReports.setVisible(false);
         paneSettings.setVisible(false);
 
         menuPaneDashboard.setStyle("*-fx-background-color: [paneMenu]");
         menuPaneStock.setStyle("*-fx-background-color: [paneMenu]");
-        menuPaneSuppliers.setStyle("*-fx-background-color: [paneMenu]");
-        menuPaneCustomers.setStyle("*-fx-background-color: [paneMenu]");
         menuPaneReports.setStyle("*-fx-background-color: [paneMenu]");
         menuPaneSettings.setStyle("*-fx-background-color: [paneMenu]");
 
@@ -178,12 +220,6 @@ public class DashboardFormController {
         }else if(paneNumber==2){
             paneStock.setVisible(true);
             menuPaneStock.setStyle("-fx-background-color: white");
-        }else if(paneNumber==3){
-            paneSuppliers.setVisible(true);
-            menuPaneSuppliers.setStyle("-fx-background-color: white");
-        }else if(paneNumber==4){
-            paneCustomers.setVisible(true);
-            menuPaneCustomers.setStyle("-fx-background-color: white");
         }else if(paneNumber==5){
             paneReports.setVisible(true);
             menuPaneReports.setStyle("-fx-background-color: white");
@@ -300,6 +336,7 @@ public class DashboardFormController {
                 lblPhone.setText(resultSet.getString(4));
                 url=resultSet.getString(7);
                 lblLoginStatus.setText(resultSet.getString(2));
+                lblLoginStatusRole.setText(resultSet.getString(8));
             }
             File file = new File(Objects.requireNonNull(url));
             File fileDefault = new File("src/images/default.jpg");
@@ -785,6 +822,7 @@ public class DashboardFormController {
 
     public void btnRefreshUserTableOnAction(ActionEvent actionEvent) {
         systemUsersTable();
+        supplierTable();
     }
 
     public void btnAddUserOnAction(ActionEvent actionEvent) throws IOException {
@@ -842,11 +880,186 @@ public class DashboardFormController {
         }
     }
 
-    public void btnUpdateUserOnAction(ActionEvent actionEvent) {
+    public void btnUpdateUserOnAction(ActionEvent actionEvent) throws IOException {
+        if(!tblSystemUser.getSelectionModel().isEmpty()){
 
+            selectedUserId = tblSystemUser.getSelectionModel().getSelectedItem().getId();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/user/UpdateUserForm.fxml"));
+            Parent root1=(Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root1));
+            stage.initStyle(StageStyle.UTILITY);
+            stage.setTitle("Update User");
+            stage.show();
+        }
     }
 
     public void tblUserOnMousePressed(MouseEvent mouseEvent) {
         systemUserRowIsDetected=false;
+    }
+
+    public void tblSupplierOnMousePressed(MouseEvent mouseEvent) {
+        supplierRowIsDetected=false;
+    }
+
+    public void btnDeleteSupplierOnAction(ActionEvent actionEvent) {
+        if(!supplierRowIsDetected){
+            if(!tblSupplier.getSelectionModel().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Do You Want To Delete This Supplier..!",ButtonType.YES,ButtonType.NO);
+                Optional<ButtonType> buttonType = alert.showAndWait();
+                if (buttonType.get().equals(ButtonType.YES)){
+                    SupplierTM selectedItem = tblSupplier.getSelectionModel().getSelectedItem();
+                    String deleteItemId = selectedItem.getId();
+                    Connection connection = DBConnection.getInstance().getConnection();
+                    try {
+                        PreparedStatement preparedStatement = connection.prepareStatement("delete from supplier where id=?");
+                        preparedStatement.setObject(1,deleteItemId);
+                        preparedStatement.executeUpdate();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
+                    itemsUsers.remove(selectedItem);
+                    supplierRowIsDetected=true;
+                    btnRefreshUserTableOnAction(actionEvent);
+                    Notifications notifications =Notifications.create();
+                    notifications.title("Delete Notification");
+                    notifications.text("Supplier Delete successfully");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showWarning();
+                    paneUpdateSupplier.setVisible(false);
+                }
+            }
+        }
+    }
+
+    public void btnAddSupplierOnAction(ActionEvent actionEvent) throws IOException {
+        if(!txtMainSupplierName.getText().isEmpty()){
+            if(!txtMainSupplierId.getText().equals(newSupplierId)){
+                txtMainSupplierId.setText(newSupplierId);
+                txtMainSupplierName.clear();
+                txtMainSupplierName.requestFocus();
+            }else {
+                Connection connection = DBConnection.getInstance().getConnection();
+                try {
+                    PreparedStatement preparedStatement = connection.prepareStatement("insert into supplier values(?,?)");
+                    preparedStatement.setObject(1,txtMainSupplierId.getText());
+                    preparedStatement.setObject(2,txtMainSupplierName.getText());
+                    int i = preparedStatement.executeUpdate();
+                    supplierTable();
+                    Notifications notifications =Notifications.create();
+                    notifications.title("Successful Notification");
+                    notifications.text("New supplier Add Successful...");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showInformation();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                paneUpdateSupplier.setVisible(false);
+            }
+
+        }
+        else {
+            Notifications notifications =Notifications.create();
+            notifications.title("Error Notification");
+            notifications.text("Please input supplier name...");
+            notifications.graphic(null);
+            notifications.hideAfter(Duration.seconds(5));
+            notifications.position(Pos.TOP_RIGHT);
+            notifications.darkStyle();
+            notifications.showWarning();
+        }
+
+
+    }
+
+    public void btnUpdateSupplierOnAction(ActionEvent actionEvent) {
+        if(!txtMainSupplierName.getText().isEmpty()){
+            if(txtMainSupplierId.getText().equals(newSupplierId)){
+                Notifications notifications =Notifications.create();
+                notifications.title("Error Notification");
+                notifications.text("please select Supplier...");
+                notifications.graphic(null);
+                notifications.hideAfter(Duration.seconds(5));
+                notifications.position(Pos.TOP_RIGHT);
+                notifications.darkStyle();
+                notifications.showInformation();
+            }
+            else {
+                Connection connection = DBConnection.getInstance().getConnection();
+                try {
+                    PreparedStatement preparedStatement = connection.prepareStatement("update supplier set name=? where id=?");
+                    preparedStatement.setObject(2,txtMainSupplierId.getText());
+                    preparedStatement.setObject(1,txtMainSupplierName.getText());
+                    int i = preparedStatement.executeUpdate();
+                    supplierTable();
+                    Notifications notifications =Notifications.create();
+                    notifications.title("Successful Notification");
+                    notifications.text("New supplier Update Successful...");
+                    notifications.graphic(null);
+                    notifications.hideAfter(Duration.seconds(5));
+                    notifications.position(Pos.TOP_RIGHT);
+                    notifications.darkStyle();
+                    notifications.showInformation();
+
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+                paneUpdateSupplier.setVisible(false);
+            }
+
+        }
+        else {
+            Notifications notifications =Notifications.create();
+            notifications.title("Error Notification");
+            notifications.text("Please input supplier name...");
+            notifications.graphic(null);
+            notifications.hideAfter(Duration.seconds(5));
+            notifications.position(Pos.TOP_RIGHT);
+            notifications.darkStyle();
+            notifications.showWarning();
+        }
+    }
+
+    public void btnMainUpdateSupplierOnAction(ActionEvent actionEvent) {
+        supplierRowIsDetected=true;
+        paneUpdateSupplier.setVisible(true);
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from supplier order by id desc limit 1;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String oldId = null;
+            String newId=null;
+            if(resultSet.next()){
+                oldId = resultSet.getString(1);
+            }
+            if(oldId==null){
+                newId="S001";
+            }else {
+                int id=Integer.parseInt(oldId.substring(1,4));
+                id=id+1;
+                if (id<10){
+                    newId="S00"+id;
+                }else if(id<100){
+                    newId="S0"+id;
+                }else if(id<1000){
+                    newId="S"+id;
+                }
+            }
+            newSupplierId=newId;
+            txtMainSupplierId.setText(newId);
+            txtMainSupplierName.clear();
+            txtMainSupplierId.setEditable(false);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

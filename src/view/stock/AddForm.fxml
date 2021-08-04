@@ -2,6 +2,7 @@
 
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
@@ -11,81 +12,81 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="PaneBackground" prefHeight="513.0" prefWidth="579.0" stylesheets="@../../style/AddFormStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.stock.AddFormController">
-   <children>
-      <Pane id="pane" layoutX="27.0" layoutY="26.0" prefHeight="386.0" prefWidth="527.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="26.0">
-         <children>
-            <Label layoutX="32.0" layoutY="21.0" prefHeight="35.0" prefWidth="177.0" text="Item Id                 :">
-               <font>
-                  <Font name="Arial Narrow" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="32.0" layoutY="64.0" prefHeight="35.0" prefWidth="177.0" text="Item Name          :">
-               <font>
-                  <Font name="Arial Narrow" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="32.0" layoutY="108.0" prefHeight="35.0" prefWidth="177.0" text="Item Sell price     :">
-               <font>
-                  <Font name="Arial Narrow" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="34.0" layoutY="245.0" prefHeight="35.0" prefWidth="177.0" text="EXP                    :">
-               <font>
-                  <Font name="Arial Narrow" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="33.0" layoutY="287.0" prefHeight="35.0" prefWidth="177.0" text="Supplier ID          :">
-               <font>
-                  <Font name="Arial Narrow" size="25.0" />
-               </font>
-            </Label>
-            <Label layoutX="35.0" layoutY="329.0" prefHeight="35.0" prefWidth="177.0" text="Buy Price            :">
-               <font>
-                  <Font name="Arial Narrow" size="25.0" />
-               </font>
-            </Label>
-            <TextField id="txt" fx:id="txtItemId" alignment="CENTER" layoutX="227.0" layoutY="26.0" prefHeight="30.0" prefWidth="273.0" />
-            <TextField id="txt" fx:id="txtItemName" alignment="CENTER" layoutX="227.0" layoutY="67.0" prefHeight="30.0" prefWidth="273.0" />
-            <TextField id="txt" fx:id="txtItemSellPrice" alignment="CENTER" layoutX="227.0" layoutY="111.0" onKeyTyped="#txtItemSellPriceKeyTyped" prefHeight="30.0" prefWidth="273.0" />
-            <TextField id="txt" fx:id="txtItemQuantity" alignment="CENTER" layoutX="226.0" layoutY="159.0" onKeyTyped="#txtItemQuantityKeyTyped" prefHeight="30.0" prefWidth="273.0" />
-            <TextField id="txt" fx:id="txtBuyPrice" alignment="CENTER" layoutX="227.0" layoutY="334.0" onKeyTyped="#txtBuyPriceOnKeyTyped" prefHeight="30.0" prefWidth="273.0" />
-            <Button id="btn" layoutX="281.0" layoutY="383.0" mnemonicParsing="false" onAction="#btnSubmitOnAction" prefHeight="44.0" prefWidth="195.0" text="Submit" textFill="WHITE">
-               <font>
-                  <Font name="Britannic Bold" size="20.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <Button id="btn" layoutX="56.0" layoutY="382.0" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="44.0" prefWidth="195.0" text="Clear" textFill="WHITE">
-               <font>
-                  <Font name="Britannic Bold" size="20.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <DatePicker id="txt" fx:id="dateMFD" layoutX="225.0" layoutY="209.0" prefHeight="30.0" prefWidth="273.0" />
-            <DatePicker id="txt" fx:id="dateEXP" layoutX="225.0" layoutY="250.0" prefHeight="30.0" prefWidth="273.0" />
-            <ComboBox fx:id="cmbSupplierId" layoutX="227.0" layoutY="290.0" prefHeight="30.0" prefWidth="273.0" />
-         </children>
-      </Pane>
-      <Label layoutX="60.0" layoutY="180.0" prefHeight="35.0" prefWidth="177.0" text="Item Quantity      :">
-         <font>
-            <Font name="Arial Narrow" size="25.0" />
-         </font>
-      </Label>
-      <Label layoutX="59.0" layoutY="225.0" prefHeight="35.0" prefWidth="177.0" text="MFD                    :">
-         <font>
-            <Font name="Arial Narrow" size="25.0" />
-         </font>
-      </Label>
-   </children>
+<AnchorPane id="PaneBackground" prefHeight="560.0" prefWidth="579.0" stylesheets="@../../style/AddFormStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.stock.AddFormController">
+   <Pane id="pane" layoutX="27.0" layoutY="26.0" prefHeight="386.0" prefWidth="527.0" AnchorPane.bottomAnchor="23.0" AnchorPane.leftAnchor="27.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="26.0">
+      <children>
+         <Label layoutX="32.0" layoutY="21.0" prefHeight="35.0" prefWidth="177.0" text="Item Id                 :">
+            <font>
+               <Font name="Arial Narrow" size="25.0" />
+            </font>
+         </Label>
+         <Label layoutX="32.0" layoutY="64.0" prefHeight="35.0" prefWidth="177.0" text="Item Name          :">
+            <font>
+               <Font name="Arial Narrow" size="25.0" />
+            </font>
+         </Label>
+         <Label layoutX="32.0" layoutY="108.0" prefHeight="35.0" prefWidth="177.0" text="Item Sell price     :">
+            <font>
+               <Font name="Arial Narrow" size="25.0" />
+            </font>
+         </Label>
+         <Label layoutX="34.0" layoutY="245.0" prefHeight="35.0" prefWidth="177.0" text="EXP                    :">
+            <font>
+               <Font name="Arial Narrow" size="25.0" />
+            </font>
+         </Label>
+         <Label layoutX="33.0" layoutY="287.0" prefHeight="35.0" prefWidth="177.0" text="Supplier ID          :">
+            <font>
+               <Font name="Arial Narrow" size="25.0" />
+            </font>
+         </Label>
+         <Label layoutX="35.0" layoutY="377.0" prefHeight="35.0" prefWidth="177.0" text="Buy Price            :">
+            <font>
+               <Font name="Arial Narrow" size="25.0" />
+            </font>
+         </Label>
+         <TextField id="txt" fx:id="txtItemId" alignment="CENTER" layoutX="227.0" layoutY="26.0" prefHeight="30.0" prefWidth="273.0" />
+         <TextField id="txt" fx:id="txtItemName" alignment="CENTER" layoutX="227.0" layoutY="67.0" prefHeight="30.0" prefWidth="273.0" />
+         <TextField id="txt" fx:id="txtItemSellPrice" alignment="CENTER" layoutX="227.0" layoutY="111.0" onKeyTyped="#txtItemSellPriceKeyTyped" prefHeight="30.0" prefWidth="273.0" />
+         <TextField id="txt" fx:id="txtItemQuantity" alignment="CENTER" layoutX="226.0" layoutY="159.0" onKeyTyped="#txtItemQuantityKeyTyped" prefHeight="30.0" prefWidth="273.0" />
+         <TextField id="txt" fx:id="txtBuyPrice" alignment="CENTER" layoutX="227.0" layoutY="382.0" onKeyTyped="#txtBuyPriceOnKeyTyped" prefHeight="30.0" prefWidth="273.0" />
+         <Button id="btn" layoutX="281.0" layoutY="431.0" mnemonicParsing="false" onAction="#btnSubmitOnAction" prefHeight="44.0" prefWidth="195.0" text="Submit" textFill="WHITE">
+            <font>
+               <Font name="Britannic Bold" size="20.0" />
+            </font>
+            <effect>
+               <DropShadow />
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <Button id="btn" layoutX="56.0" layoutY="430.0" mnemonicParsing="false" onAction="#btnClearOnAction" prefHeight="44.0" prefWidth="195.0" text="Clear" textFill="WHITE">
+            <font>
+               <Font name="Britannic Bold" size="20.0" />
+            </font>
+            <effect>
+               <DropShadow />
+            </effect>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <DatePicker id="txt" fx:id="dateMFD" layoutX="225.0" layoutY="209.0" prefHeight="30.0" prefWidth="273.0" />
+         <DatePicker id="txt" fx:id="dateEXP" layoutX="225.0" layoutY="250.0" prefHeight="30.0" prefWidth="273.0" />
+         <ComboBox fx:id="cmbSupplierId" layoutX="227.0" layoutY="290.0" onAction="#cmbSupplierIdOnAction" prefHeight="30.0" prefWidth="273.0" />
+         <CheckBox fx:id="cbxAddNewSupplier" contentDisplay="CENTER" layoutX="57.0" layoutY="333.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" onAction="#cbxAddNewUserOnAction" prefHeight="35.0" prefWidth="159.0" text="Add New Supplier" />
+         <TextField fx:id="txtAddNewSupplier" disable="true" layoutX="225.0" layoutY="336.0" prefHeight="30.0" prefWidth="273.0" />
+      </children>
+   </Pane>
+   <Label layoutX="60.0" layoutY="180.0" prefHeight="35.0" prefWidth="177.0" text="Item Quantity      :">
+      <font>
+         <Font name="Arial Narrow" size="25.0" />
+      </font>
+   </Label>
+   <Label layoutX="59.0" layoutY="225.0" prefHeight="35.0" prefWidth="177.0" text="MFD                    :">
+      <font>
+         <Font name="Arial Narrow" size="25.0" />
+      </font>
+   </Label>
 </AnchorPane>

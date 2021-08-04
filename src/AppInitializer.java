@@ -19,15 +19,12 @@ public class AppInitializer extends Application {
         Parent parent = FXMLLoader.load(this.getClass().getResource("view/LoginForm.fxml"));
         //Parent parent = FXMLLoader.load(this.getClass().getResource("view/DashboardForm.fxml"));
         //Parent parent = FXMLLoader.load(this.getClass().getResource("view/BillingForm.fxml"));
-        //Parent parent = FXMLLoader.load(this.getClass().getResource("view/Test.fxml"));
 
         Scene scene = new Scene(parent);
 
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.setScene(scene);
         primaryStage.centerOnScreen();
-        //primaryStage.setMaximized(true);
-        //primaryStage.setFullScreen(true);
 
         primaryStage.show();
     }

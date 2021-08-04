@@ -6,10 +6,7 @@ import db.DBConnection;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
@@ -28,6 +25,9 @@ public class AddFormController extends DashboardFormController {
     public DatePicker dateMFD;
     public DatePicker dateEXP;
     public ComboBox<SupplierIdComboTM> cmbSupplierId;
+    public CheckBox cbxAddNewSupplier;
+    public TextField txtAddNewSupplier;
+    public String supplerId;
 
     public void initialize(){
         setItemId();
@@ -116,17 +116,19 @@ public class AddFormController extends DashboardFormController {
         String exp=String.valueOf(dateEXP.getValue());
 
         if(!(name.equals("")||sellPrice.equals("")||quantity.equals("")||buyPrice.equals("")||id.equals(""))){
-            String supplerId=String.valueOf(cmbSupplierId.getValue());
+            supplerId=String.valueOf(cmbSupplierId.getValue());
             txtItemName.setStyle("[id=txt]");
             txtItemSellPrice.setStyle("[id=txt]");
             txtItemQuantity.setStyle("[id=txt]");
             txtBuyPrice.setStyle("[id=txt]");
-            if((cmbSupplierId.getValue()==null)){
-                new Alert(Alert.AlertType.WARNING, "please Select Supplier ID").showAndWait();
-            }
-            else {
+            if((cmbSupplierId.getValue()!=null)||cbxAddNewSupplier.isSelected()){
+                if(cbxAddNewSupplier.isSelected()){
+                    String newSupplier=txtAddNewSupplier.getText();
+                    addNewSupplier(newSupplier);
+                }else {
+                    supplerId=String.valueOf(cmbSupplierId.getValue()).substring(0,5);
+                }
                 Connection connection = DBConnection.getInstance().getConnection();
-                supplerId=String.valueOf(cmbSupplierId.getValue()).substring(0,5);
                 try {
                     PreparedStatement preparedStatement = connection.prepareStatement("insert into item values(?,?,?,?,?,?,?,?)");
                     preparedStatement.setObject(1,id);
@@ -171,6 +173,9 @@ public class AddFormController extends DashboardFormController {
                     throwables.printStackTrace();
                 }
             }
+            else {
+                new Alert(Alert.AlertType.WARNING, "please Select Supplier ID Or Add new Supplier").showAndWait();
+            }
         }
         else {
             //new Alert(Alert.AlertType.WARNING,"Please Fill this fields").showAndWait();
@@ -199,6 +204,41 @@ public class AddFormController extends DashboardFormController {
 
     }
 
+    public void addNewSupplier(String name){
+        Connection connection = DBConnection.getInstance().getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from supplier order by id desc limit 1;");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            String oldId = null;
+            String newId=null;
+            if(resultSet.next()){
+                oldId = resultSet.getString(1);
+            }
+            if(oldId==null){
+                newId="S001";
+            }else {
+                int id=Integer.parseInt(oldId.substring(1,4));
+                id=id+1;
+                if (id<10){
+                    newId="S00"+id;
+                }else if(id<100){
+                    newId="S0"+id;
+                }else if(id<1000){
+                    newId="S"+id;
+                }
+            }
+            supplerId=newId;
+
+            PreparedStatement preparedStatement1 = connection.prepareStatement("insert into supplier values(?,?)");
+            preparedStatement1.setObject(1,newId);
+            preparedStatement1.setObject(2,name);
+            int i = preparedStatement1.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     public void txtItemSellPriceKeyTyped(KeyEvent keyEvent) {
         inputValidation(txtItemSellPrice);
     }
@@ -220,5 +260,22 @@ public class AddFormController extends DashboardFormController {
                 event.consume();
             }
         });
+    }
+
+    public void cbxAddNewUserOnAction(ActionEvent actionEvent) {
+        if(cbxAddNewSupplier.isSelected()){
+            txtAddNewSupplier.setDisable(false);
+            cmbSupplierId.getSelectionModel().select(null);
+        }
+        else {
+            txtAddNewSupplier.setDisable(true);
+            txtAddNewSupplier.clear();
+        }
+    }
+
+    public void cmbSupplierIdOnAction(ActionEvent actionEvent) {
+        txtAddNewSupplier.setDisable(true);
+        txtAddNewSupplier.clear();
+        cbxAddNewSupplier.setSelected(false);
     }
 }
