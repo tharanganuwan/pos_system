@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -79,7 +82,7 @@
                <Font name="Britannic Bold" size="25.0" />
             </font>
          </Label>
-         <ImageView fitHeight="49.0" fitWidth="54.0" layoutX="55.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fitHeight="49.0" fitWidth="54.0" layoutX="55.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../images/settings.png" />
             </image>
@@ -175,7 +178,6 @@
          </Label>
       </Pane>
    </Pane>
-   <Pane id="Reports" fx:id="paneReports" layoutY="188.0" prefHeight="700.0" prefWidth="1622.0" />
    <Pane id="Dashboard" fx:id="paneDashboard" layoutX="1.0" layoutY="189.0" prefHeight="700.0" prefWidth="1621.0">
       <Pane id="PaneDetails" layoutX="46.0" layoutY="44.0" prefHeight="607.0" prefWidth="440.0">
          <Label id="lblTitles" alignment="CENTER" layoutX="55.0" layoutY="49.0" prefHeight="49.0" prefWidth="343.0" text="Login Details">
@@ -614,4 +616,63 @@
          </Label>
       </Pane>
    </Pane>
+   <Pane id="Reports" fx:id="paneReports" layoutY="188.0" prefHeight="700.0" prefWidth="1622.0">
+      <children>
+         <Pane id="PaneDetails" layoutX="35.0" layoutY="35.0" prefHeight="632.0" prefWidth="1556.0">
+            <children>
+               <Pane id="stockDetailsPanes" layoutX="30.0" layoutY="33.0" prefHeight="570.0" prefWidth="999.0">
+                  <children>
+                     <Pane fx:id="paneUpdateSupplier1" layoutX="592.0" layoutY="378.0" prefHeight="96.0" prefWidth="384.0" style="-fx-background-color: orange;" visible="false">
+                        <children>
+                           <TextField fx:id="txtMainSupplierId1" layoutX="18.0" layoutY="8.0" prefHeight="30.0" prefWidth="171.0" promptText="Supplier Id" />
+                           <TextField fx:id="txtMainSupplierName1" layoutX="204.0" layoutY="7.0" prefHeight="30.0" prefWidth="171.0" promptText="Supplier Name" />
+                           <Button id="btnsStock" layoutX="14.0" layoutY="51.0" mnemonicParsing="false" onAction="#btnAddSupplierOnAction" prefHeight="36.0" prefWidth="75.0" text="ADD" textFill="WHITE">
+                              <font>
+                                 <Font name="Britannic Bold" size="20.0" />
+                              </font>
+                              <effect>
+                                 <DropShadow />
+                              </effect>
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                           </Button>
+                           <Button id="btnsStock" layoutX="106.0" layoutY="51.0" mnemonicParsing="false" onAction="#btnDeleteSupplierOnAction" prefHeight="30.0" prefWidth="144.0" text="DELETE" textFill="WHITE">
+                              <font>
+                                 <Font name="Britannic Bold" size="20.0" />
+                              </font>
+                              <effect>
+                                 <DropShadow />
+                              </effect>
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                           </Button>
+                           <Button id="btnsStock" layoutX="265.0" layoutY="51.0" mnemonicParsing="false" onAction="#btnUpdateSupplierOnAction" prefHeight="36.0" prefWidth="109.0" text="Update" textFill="WHITE">
+                              <font>
+                                 <Font name="Britannic Bold" size="20.0" />
+                              </font>
+                              <effect>
+                                 <DropShadow />
+                              </effect>
+                              <cursor>
+                                 <Cursor fx:constant="HAND" />
+                              </cursor>
+                           </Button>
+                        </children>
+                     </Pane>
+                     <LineChart layoutX="27.0" layoutY="27.0" prefHeight="506.0" prefWidth="921.0">
+                       <xAxis>
+                         <CategoryAxis endMargin="10.0" label="days" side="BOTTOM" tickLabelRotation="53.1" />
+                       </xAxis>
+                       <yAxis>
+                         <NumberAxis side="LEFT" />
+                       </yAxis>
+                     </LineChart>
+                  </children>
+               </Pane>
+               <Pane id="stockDetailsPanes" layoutX="1051.0" layoutY="33.0" prefHeight="571.0" prefWidth="479.0" />
+            </children>
+         </Pane>
+      </children></Pane>
 </AnchorPane>

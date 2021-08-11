@@ -34,14 +34,9 @@
 #Stock{
     -fx-background-color: white;
 }
-#Suppliers{
-    -fx-background-color: blue;
-}
-#Customers{
-    -fx-background-color: black;
-}
+
 #Reports{
-    -fx-background-color: green;
+    -fx-background-color: white;
 }
 #Settings{
     -fx-background-color:  white;
