@@ -1,7 +1,4 @@
-pos system default login
 
-user name=Admin
-password=12345
 
 ![Screenshot (242)](https://user-images.githubusercontent.com/87701301/130351255-ac83403d-f8ae-4245-b021-090985c5ef95.png)
 ![Screenshot (243)](https://user-images.githubusercontent.com/87701301/130351257-c1732ddd-e5b1-454f-abfc-88838cb7641d.png)
